@@ -11,13 +11,14 @@ const app = express()
 app.use(cors())
 app.use(clerkMiddleware())
 
-app.post(
+app.use(
   "/api/clerk",
-  express.raw({ type: "application/json" }), // This is crucial for Svix
-  clerkWebhooks
+  express.raw({ type: "application/json" }) // this goes before body parser
 );
 
 app.use(express.json())
+
+app.post("/api/clerk", clerkWebhooks);
 
 app.get('/',(req,res)=> (
     res.send("hi")

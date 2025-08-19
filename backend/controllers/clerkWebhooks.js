@@ -1,5 +1,4 @@
 import User from "../models/User.js";
-
 import { Webhook } from "svix";
 
 const clerkWebhooks = async (req, res) => {
@@ -19,7 +18,6 @@ const clerkWebhooks = async (req, res) => {
             username: data.first_name + " " + data.last_name,
             image: data.image_url
         }
-
         switch (type) {
             case "user.created": {
                 await User.create(userData)
@@ -37,11 +35,9 @@ const clerkWebhooks = async (req, res) => {
                 break;
         }
         res.json({ success: true, message: "Webhook Received" })
-
     } catch (error) {
         console.log(error.message);
         res.status(400).json({ success: false, message: error.message })
-
     }
 }
 
